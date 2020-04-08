@@ -14,7 +14,7 @@ from scipy.optimize import linprog
 import numpy as np
 
 from ex00 import nn2na
-from ex01 import NN, beq, C
+from ex01 import NN, beq, C, get_selected_arcs
 
 if __name__ == '__main__':
     Aeq, arc_idxs = nn2na(NN)
@@ -24,4 +24,4 @@ if __name__ == '__main__':
       res = linprog(C, A_eq=Aeq, b_eq=beq, bounds=bounds)
       print("Usando el método %s:"%method)
       pprint(res)
-      print("\n")
+      print("El camino es: %s" % get_selected_arcs(arc_idxs, res.x))

@@ -30,9 +30,16 @@ NN = np.array([
     [0, 0, 0, 0, 1, 0],  # 3
     [0, 0, 0, 0, 0, 1],  # 4
     [0, 0, 0, 0, 0, 1],  # 5
-    [0, 0, 0, 0, 0, 0]  # t
+    [0, 0, 0, 0, 0, 0]   # t
 ])
 C = np.array([2, 2, 2, 5, 2, 1, 2])
+
+def get_selected_arcs(arc_idxs, selected_arcs):
+    arc = []
+    for idx, i in enumerate(selected_arcs):
+        if round(i) == 1:
+            arc.append(arc_idxs[idx])
+    return arc
 
 if __name__ == '__main__':
     Aeq, arc_idxs = nn2na(NN)
@@ -40,3 +47,4 @@ if __name__ == '__main__':
 
     res = linprog(C, A_eq=Aeq, b_eq=beq, bounds=bounds)
     pprint(res)
+    print("El camino es: %s"%get_selected_arcs(arc_idxs, res.x))
