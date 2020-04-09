@@ -35,8 +35,8 @@ NN = np.array([
 ])
 
 def recorrido(prec):
-    ruta = [len(prec) - 1]
     pos = len(prec) - 1
+    ruta = [pos]
     while pos > 0:
         pos = (prec[pos])
         ruta.insert(0, pos)
@@ -56,12 +56,15 @@ def dijkstra_path(graph):
         head = reduce(lambda y, x: x if weight.flat[x] < weight.flat[y] else y, nodes, nodes[0])
         # lo saco de la lista de nodos
         nodes.remove(head)
-        #
+        # recorro el "vecindario"
         for v in np.where(graph[head] > 0)[0]:
+            # calculo el costo de incluir este arco
             potential_weight = weight[head] + graph[head][v]
+            # si mejora el costo que ya había hacia el vecino, reemplazo
             if potential_weight < weight[v]:
                 weight[v] = potential_weight
                 prec[v] = head
+    # devuelvo de manera amigable
     return recorrido(prec)
 
 if __name__ == '__main__':
