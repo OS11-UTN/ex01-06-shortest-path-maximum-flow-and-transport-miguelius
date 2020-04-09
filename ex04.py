@@ -27,8 +27,8 @@ def get_selected_arcs(arc_idxs, selected_arcs):
 def get_usage(arc_idxs, use, max_flow):
     return  ["%s -> %d / %s"%(x, use[i], max_flow[i]) for i,x in enumerate(arc_idxs)]
 
-def min_cut(arc_idxs, res, max_flow):
-    return list(filter(lambda x: x is not None, [ x if max_flow[i] != None and np.isclose(res[i], max_flow[i]) == [True]  else None for i,x in enumerate(arc_idxs)]))
+def min_cut(arc_idxs, use, max_flow):
+    return list(filter(lambda x: x is not None, [ x if max_flow[i] != None and np.isclose(use[i], max_flow[i]) == [True]  else None for i,x in enumerate(arc_idxs)]))
 
 
 if __name__ == '__main__':
