@@ -20,7 +20,6 @@ foreach node_iin graph:
         prec[neighbor] = head
 """
 from functools import reduce
-from pprint import pprint
 import numpy as np
 
 graph = np.array([
