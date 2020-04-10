@@ -52,12 +52,16 @@ def dijkstra_path(graph):
     NN, C = graph2NNplusArcs(graph)
     return dijkstra_path_NN_C(NN,C)
 
+def get_arcs_as_tuple_list(NN):
+    return [ tuple(x) for x in (np.transpose(np.nonzero(NN)).tolist())]
+
 def dijkstra_path_NN_C(NN,C):
     weight = np.full(graph.shape[0], np.inf)
     prec = np.zeros(graph.shape[0], int)
 
     # relacionar arista con Cs
-    pesos = dict(zip([ tuple(x) for x in (np.transpose(np.nonzero(NN)).tolist())], C))
+    arcs = get_arcs_as_tuple_list(NN)
+    pesos = dict(zip(arcs, C))
     #return pesos
     # pesos = dict(enumerate(graph.flatten(), 1))#list(zip(np.transpose(np.nonzero(NN)), C))#[ (x, C[i]) for i,x in enumerate(np.transpose(np.nonzero(NN)))]
 

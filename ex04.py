@@ -16,14 +16,6 @@ NN = np.array([
     [1, 0, 0, 0, 0, 0]   # t
 ])
 
-def get_selected_arcs(arc_idxs, selected_arcs):
-    arc = []
-    for idx, i in enumerate(selected_arcs):
-        if round(i) == 1:
-            arc.append(arc_idxs[idx])
-    return arc
-
-
 def get_usage(arc_idxs, use, max_flow):
     return  [f"{x} -> {use[i]} / {max_flow[i]}" for i,x in enumerate(arc_idxs)]
 
