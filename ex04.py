@@ -25,7 +25,7 @@ def get_selected_arcs(arc_idxs, selected_arcs):
 
 
 def get_usage(arc_idxs, use, max_flow):
-    return  ["%s -> %d / %s"%(x, use[i], max_flow[i]) for i,x in enumerate(arc_idxs)]
+    return  [f"{x} -> {use[i]} / {max_flow[i]}" for i,x in enumerate(arc_idxs)]
 
 def min_cut(arc_idxs, use, max_flow):
     return list(filter(lambda x: x is not None, [ x if max_flow[i] != None and np.isclose(use[i], max_flow[i]) == [True]  else None for i,x in enumerate(arc_idxs)]))
@@ -44,6 +44,6 @@ if __name__ == '__main__':
     min_cut = min_cut(arc_idxs, res.x, np.array(max_q))
     max_flow = - res.fun
     print("## Results ##")
-    print("Usage: (from,to) -> used/max: %s"% usage)
-    print("Min arcs to be cut to cut: (from,to) %s"% min_cut)
-    print("Max flow: %0.2f"% max_flow)
+    print(f"Usage: (from,to) -> used/max: {usage}")
+    print(f"Min arcs to be cut to cut: (from,to) {min_cut}" )
+    print(f"Max flow: {max_flow:0.2f}")
