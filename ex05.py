@@ -28,9 +28,8 @@ graph = np.array([
 ])
 
 def max_capacity(path):
-    map(lambda x: )
+    #map(lambda x: )
     return np.min(path)
-
 
 def DFS(param, param1):
     return []
