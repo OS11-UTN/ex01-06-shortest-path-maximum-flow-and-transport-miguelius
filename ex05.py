@@ -27,28 +27,47 @@ graph = np.array([
     [0, 0, 0, 0, 0, 0]   # t
 ])
 
-def max_capacity(path):
-    #map(lambda x: )
+def max_capacity(path, quedan):
+    # map(lambda x: )
     return np.min(path)
 
-def DFS(param, param1):
-    return []
+def ruta(arcos, s, t, arcos2):
+    if (s == t):
+        return arcos2
+    for a in arcos:
+        if a[0] != s:
+            continue
+        if a not in arcos2:
+            arcos_extendido = ruta(arcos, a[1], t, arcos2)
+            if arcos_extendido != None:
+                arcos2.append(a)
+                return arcos_extendido
+    return None
+
+def DFS(arcs, s, t):
+    arcos = ruta(arcs, s, t, [])
+    if arcos: arcos.reverse()
+    return arcos
 
 if __name__ == '__main__':
   NN, C = graph2NNplusArcs(graph)
   arcs = get_arcs_as_tuple_list(NN)
   residual_g = np.zeros(NN.shape)
+  quedan = C
   flow = graph
-  path = DFS(0, 5)
+  path = DFS(arcs, 0, 5)
+  print(path)
 
-  while len(path) > 0:
+  while path:
     # minimo flujo
-    path_max_capacity = max_capacity(path)
-
+    path_max_capacity = max_capacity(path, quedan)
+    path = None
+    """
     for e in path:
       u = e[0]
       v = e[1]
       residual_g[u][v] = flow[u][v] - max_capacity(path)
-    path = DFS(0, 5)
-
+      residual_g[v][u] = flow[v][u] + max_capacity(path)
+    path = DFS(arcs, 0, 5)
+    """
   print("Falta el implementador de rutas")
