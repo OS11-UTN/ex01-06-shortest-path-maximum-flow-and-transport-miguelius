@@ -17,7 +17,7 @@ NN = np.array([
 ])
 
 def get_usage(arc_idxs, use, max_flow):
-    return  [f"{x} -> {use[i]} / {max_flow[i]}" for i,x in enumerate(arc_idxs)]
+    return  [f"{x} -> {np.round(use[i])} / {max_flow[i]}" for i,x in enumerate(arc_idxs)]
 
 def min_cut(arc_idxs, use, max_flow):
     return list(filter(lambda x: x is not None, [ x if max_flow[i] != None and np.isclose(use[i], max_flow[i]) == [True]  else None for i,x in enumerate(arc_idxs)]))
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     res = linprog(C, A_eq=Aeq, b_eq=beq, bounds=bounds)
     pprint(res)
 
-    usage = get_usage(arc_idxs, res.x.astype(int), max_q)
+    usage = get_usage(arc_idxs, res.x.astype(float), max_q)
     min_cut = min_cut(arc_idxs, res.x, np.array(max_q))
     max_flow = - res.fun
     print("## Results ##")

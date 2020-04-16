@@ -11,7 +11,6 @@ para eso usamos dos solvers y comparamos.
 """
 from pprint import pprint
 from scipy.optimize import linprog
-import numpy as np
 
 from ex00 import nn2na
 from ex01 import NN, beq, C, get_selected_arcs
@@ -21,7 +20,7 @@ if __name__ == '__main__':
     bounds = tuple([(0, None) for arcs in range(0, Aeq.shape[1])])
     C.flat[1] = 1
     for method in 'interior-point', 'simplex':
-      res = linprog(C, A_eq=Aeq, b_eq=beq, bounds=bounds)
+      res = linprog(C, A_eq=Aeq, b_eq=beq, bounds=bounds, method=method)
       print("Usando el método %s:"%method)
       pprint(res)
       print("El camino es: %s" % get_selected_arcs(arc_idxs, res.x))
